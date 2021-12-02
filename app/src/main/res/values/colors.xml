@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#EEF5FF</color>
+    <color name="purpleBlue">#2726C3</color>
+    <color name="colorinActive">#F2F2F2</color> <!-- Серый цвет не активных ячеек -->
+    <color name="colorinActiveText">#D8D8D8</color> <!-- Серый цвет текста не активных ячеек -->
+    <color name="colorWhite">#ffffff</color> <!-- Белый цвет текста -->
+    <color name="colorBlack">#000000</color> <!-- Черный цвет текста -->
+</resources>

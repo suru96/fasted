@@ -1,0 +1,2 @@
+include ':app', ':autoimageslider'
+rootProject.name = "Schulte Table"

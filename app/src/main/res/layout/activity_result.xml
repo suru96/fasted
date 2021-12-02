@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
+
+    <View
+        android:id="@+id/result_view"
+        android:layout_width="355dp"
+        android:layout_height="198dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="83dp">
+    </View>
+
+    <TextView
+        android:id="@+id/result_text"
+        android:layout_width="154dp"
+        android:layout_height="28dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="99dp"
+        android:textSize="20dp"
+        android:layout_centerVertical="true"
+        android:text="@string/result">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/result_time_text"
+        android:layout_width="154dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="28dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="130dp"
+        android:layout_centerVertical="true"
+        android:textSize="36dp"
+        android:text="@string/result_time">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/praise_text"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="223dp"
+        android:layout_centerVertical="true"
+        android:text="@string/praise"
+        android:textSize="20dp">
+    </TextView>
+
+    <ImageView
+        android:layout_width="161dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="108dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="28dp"
+        android:background="@drawable/ic_result_illustration">
+
+    </ImageView>
+    
+    <TextView
+        android:id="@+id/min_time_text"
+        android:layout_width="154dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="28dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="300dp"
+        android:layout_centerVertical="true"
+        android:textSize="24dp"
+        android:text="@string/min_time">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/min_time"
+        android:layout_width="154dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="208dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="300dp"
+        android:layout_centerVertical="true"
+        android:textSize="24dp"
+        android:text="@string/result_time">
+
+    </TextView>
+    <TextView
+        android:id="@+id/last_time_text"
+        android:layout_width="154dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="28dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="350dp"
+        android:layout_centerVertical="true"
+        android:textSize="24dp"
+        android:text="@string/last_time">
+    </TextView>
+
+    <TextView
+        android:id="@+id/last_time"
+        android:layout_width="154dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="208dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="350dp"
+        android:layout_centerVertical="true"
+        android:textSize="24dp"
+        android:text="@string/result_time">
+    </TextView>
+
+    <TextView
+        android:id="@+id/total_time_text"
+        android:layout_width="154dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="28dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="400dp"
+        android:layout_centerVertical="true"
+        android:textSize="24dp"
+        android:text="@string/total_time">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/total_time"
+        android:layout_width="154dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="208dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="400dp"
+        android:layout_centerVertical="true"
+        android:textSize="24dp"
+        android:text="@string/result_time">
+
+    </TextView>
+
+    <Button
+        android:layout_width="255dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="485dp"
+        android:background="@drawable/button_shape"
+        android:onClick="onRetryClick"
+        android:text="@string/retry"
+        android:textColor="@color/colorWhite">
+
+    </Button>
+
+</RelativeLayout>

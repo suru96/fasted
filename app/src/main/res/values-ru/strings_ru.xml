@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Fasted</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Пароль</string>
+    <string name="action_sign_in">Войти или зарегистрироваться</string>
+    <string name="action_sign_in_short">Войдите</string>
+    <string name="welcome">"Добро подаловать !"</string>
+    <string name="invalid_username">Недопустимое имя пользователя</string>
+    <string name="invalid_password">Пароль должен содержать более 5 символов</string>
+    <string name="login_failed">"Неудалось войти"</string>
+    <string name="action_start">"Начать упражнение"</string>
+    <string name="error_external_storage">Failed to access the SD card</string>
+    <string name="error_write_storage">Error reading from an external drive</string>
+    <string name="error_read_storage">Error writing to an external drive</string>
+    <string name="error_connection">Error during data transfer</string>
+    <string name="error_connection_status">Error occurred while trying download file</string>
+    <string name="error_connection_not_present">Internet connection not present</string>
+    <string name="last_char">25</string>
+    <string name="max_column">5</string>
+
+    <string name="start">Старт</string>
+    <string name="save">Сохранить результат</string>
+    <string name="result">Результат: </string>
+    <string name="result_time">00:00:00 </string>
+    <string name="praise">Вы стали ближе к цели! </string>
+    <string name="search">Найдите: </string>
+    <string name="next_search">6</string>
+    <string name="retry">Начать заново</string>
+
+    <string name="min_time">Лучшее время:</string>
+    <string name="last_time">Последнее время:</string>
+    <string name="total_time">Среднее время:</string>
+</resources>

@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Fasted</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="action_start">"Start"</string>
+    <string name="error_external_storage">Failed to access the SD card</string>
+    <string name="error_write_storage">Error reading from an external drive</string>
+    <string name="error_read_storage">Error writing to an external drive</string>
+    <string name="error_connection">Error during data transfer</string>
+    <string name="error_connection_status">Error occurred while trying download file</string>
+    <string name="error_connection_not_present">Internet connection not present</string>
+    <string name="last_char">25</string>
+    <string name="max_column">5</string>
+
+    <string name="start">START</string>
+    <string name="save">Save results</string>
+    <string name="result">Result: </string>
+    <string name="result_time">00:00:00 </string>
+    <string name="praise">You have become closer to the goal! </string>
+    <string name="search">Search: </string>
+    <string name="next_search">6</string>
+    <string name="retry">Retry</string>
+
+    <string name="min_time">Min time:</string>
+    <string name="last_time">Last time:</string>
+    <string name="total_time">Total time:</string>
+
+</resources>
