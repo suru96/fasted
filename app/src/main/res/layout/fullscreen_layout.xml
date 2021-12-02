@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@android:style/Theme.Black.NoTitleBar"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/purpleBlue">
 
     <View
         android:id="@+id/some_id"

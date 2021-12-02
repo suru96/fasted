@@ -1,6 +1,7 @@
 package com.example.schultetable.ui.loading;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
@@ -54,6 +55,12 @@ public class LoadingActivity<LodaingViewModel> extends AppCompatActivity {
             }
         });
     }
+
+    private void hideSystemUI() {
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(this.getColor(R.color.purpleBlue));
+    }
+
     private void stopActivity(){
         Intent resultIntent =new Intent();
         this.setResult(this.RESULT_OK, resultIntent);
