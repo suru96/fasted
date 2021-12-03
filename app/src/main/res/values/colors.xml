@@ -8,4 +8,7 @@
     <color name="colorinActiveText">#D8D8D8</color> <!-- Серый цвет текста не активных ячеек -->
     <color name="colorWhite">#ffffff</color> <!-- Белый цвет текста -->
     <color name="colorBlack">#000000</color> <!-- Черный цвет текста -->
+    <color name="colorInActiveItem">#DFE6FF</color>
+    <color name="colorTextItem">#333333</color>
+
 </resources>

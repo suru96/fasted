@@ -10,6 +10,7 @@
     <string name="invalid_password">Пароль должен содержать более 5 символов</string>
     <string name="login_failed">"Неудалось войти"</string>
     <string name="action_start">"Начать упражнение"</string>
+    <string name="action_info">"Информация"</string>
     <string name="error_external_storage">Failed to access the SD card</string>
     <string name="error_write_storage">Error reading from an external drive</string>
     <string name="error_read_storage">Error writing to an external drive</string>
@@ -31,4 +32,9 @@
     <string name="min_time">Лучшее время:</string>
     <string name="last_time">Последнее время:</string>
     <string name="total_time">Среднее время:</string>
+
+    <string name="first_illustration">Упражнения с таблицей Шульте развивают скорость чтения, внимательность и силу воли</string>
+    <string name="second_illustration">Во время упражнения расстояние от экрана до глаз должно быть примерно 30—35 см</string>
+    <string name="third_illustration">Фиксируйте взгляд в центре таблицы и ищите числа или буквы только «боковым» зрением</string>
+    <string name="fourth_illustration">Регулярность важнее всего. Если позанимались 15 минут, отметье этот день в календаре</string>
 </resources>

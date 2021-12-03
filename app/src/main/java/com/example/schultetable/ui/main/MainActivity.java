@@ -22,7 +22,7 @@ import static com.example.schultetable.R.color.purpleBlue;
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private Boolean start;
-    private Button startButton;
+    private Button startButton, infoButton;
 
 
     @Override
@@ -40,6 +40,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                MainActivity.this.startActivity(intent);
+
+            }
+        });
+        this.infoButton = (Button) this.findViewById(R.id.infoButton);
+        this.infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SliderActivity.class);
                 MainActivity.this.startActivity(intent);
 
             }

@@ -23,4 +23,13 @@
         android:layout_centerHorizontal="true"
         android:text="@string/action_start"
         tools:layout_editor_absoluteY="644dp" />
+    <Button
+        android:id="@+id/infoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calendarView"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/action_info"
+        tools:layout_editor_absoluteY="644dp" />
 </RelativeLayout>

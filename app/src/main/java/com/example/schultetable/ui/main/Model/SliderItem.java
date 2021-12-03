@@ -1,9 +1,11 @@
 package com.example.schultetable.ui.main.Model;
 
+import android.content.Intent;
+
 public class SliderItem {
 
     private String description;
-    private String imageUrl;
+    private int imageUrl;
 
     public String getDescription() {
         return description;
@@ -13,11 +15,11 @@ public class SliderItem {
         this.description = description;
     }
 
-    public String getImageUrl() {
+    public Integer getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(Integer imageUrl) {
         this.imageUrl = imageUrl;
     }
 }
