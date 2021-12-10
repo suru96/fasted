@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.example.schultetable.R;
@@ -38,6 +39,8 @@ public class GridViewAdapter extends ArrayAdapter<String> {
         if (convertView == null) {
             convertView = new TextView(mContext);
             label = (TextView) convertView;
+            label.setSingleLine(true);
+            label.setCursorVisible(false);
         }
         //Log.d(TAG, "isRunning is:" + isRunning);
         if (this.isRunning) {
@@ -58,6 +61,7 @@ public class GridViewAdapter extends ArrayAdapter<String> {
             label.setText(mCurrendRound.get(position));
             label.setWidth((int) convertDpToPixels(mContext, (float) 74.0));
             label.setHeight((int) convertDpToPixels(mContext, (float) 74.0));
+
             label.setTextSize(48);
             if (position == 0) {label.setBackgroundResource(R.drawable.single_cell_shape_top_left);}
             else if (position == 4) {label.setBackgroundResource(R.drawable.single_cell_shape_top_right);}

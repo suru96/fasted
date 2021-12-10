@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 public class Result implements Parcelable {
-    private int id;
+    private int id, type;
     private String time, dueDate, totalTime, lastTime;
     private static final ThreadLocal<SimpleDateFormat> dateFormat =
             new ThreadLocal<SimpleDateFormat>() {
@@ -24,9 +24,10 @@ public class Result implements Parcelable {
 
     }
 
-    public Result(Integer id, String time, String dueDate){
+    public Result(Integer id, Integer type, String time, String dueDate){
         this.id = id;
         this.time = time;
+        this.type = type;
         this.dueDate = dueDate;
         this.totalTime = totalTime;
         this.lastTime = lastTime;
@@ -34,13 +35,15 @@ public class Result implements Parcelable {
     }
 
     protected Result(Parcel in){
-        id = in.readInt();
-        time = in.readString();
-        dueDate = in.readString();
-        totalTime = in.readString();
-        lastTime = in.readString();
+        this.id = in.readInt();
+        this.type = in.readInt();
+        this.time = in.readString();
+        this.dueDate = in.readString();
+        this.totalTime = in.readString();
+        this.lastTime = in.readString();
     }
 
+    //Заимствованные методы класса Parcelable
     public static final Creator<Result> CREATOR = new Creator<Result>() {
         @Override
         public Result createFromParcel(Parcel in) {
@@ -53,7 +56,6 @@ public class Result implements Parcelable {
         }
     };
 
-    //Заимствованные методы класса Parcelable
     @Override
     public int describeContents() {
         return 0;
@@ -62,7 +64,10 @@ public class Result implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
+        dest.writeInt(type);
         dest.writeString(time);
+        dest.writeString(lastTime);
+        dest.writeString(totalTime);
         dest.writeString(dueDate);
     }
 
@@ -75,6 +80,14 @@ public class Result implements Parcelable {
         this.id = id;
     }
 
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
     public String getTime() {
         return time;
     }
@@ -83,8 +96,8 @@ public class Result implements Parcelable {
         this.time = time;
     }
 
-    public void setDueDate(int year, int month, int day) {
-        GregorianCalendar calendar = new GregorianCalendar(year, month, day);
+    public void setDueDate(int year, int month, int day, int hour, int minute, int second) {
+        GregorianCalendar calendar = new GregorianCalendar(year, month, day, hour, minute, second);
         this.dueDate = dateFormat.get().format(calendar.getTime());
     }
 
@@ -108,9 +121,16 @@ public class Result implements Parcelable {
         this.lastTime = lastTime;
     }
 
+    //Преобразование строки в число
     public Integer givenString_whenCallingIntegerValueOf_shouldConvertToInt(String givenString) {
         Integer result = Integer.valueOf(givenString);
         return  result;
     }
+
+    @Override
+    public String toString() {
+        return dueDate;
+    }
+
 }
 

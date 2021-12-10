@@ -17,6 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class Table extends AppCompatActivity  implements AdapterView.OnItemSelec
     private TextView textSearch;
     private TextView textSearchNext;
     private Button startButton, saveButton;
+    private Integer type =  0;
     private boolean isRunning = false;
     private StopWatch time;
     private static final String TAG = Table.class.getSimpleName();
@@ -52,7 +54,11 @@ public class Table extends AppCompatActivity  implements AdapterView.OnItemSelec
     private Result result;
     ActionBar actionBar;
     Calendar calendar = Calendar.getInstance();
-    private static final String[] mInt ={ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25"};
+    private static final String[] mIntShort ={ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25"};
+    private static final String[] mIntLarge ={ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25","26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49"};
+    private static final String[] mStringEU ={ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y"};
+    private static final String[] mStringRU ={ "а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф", "х", "ц", "ч"};
+    private static  String[] mass;
     private MenuInflater inflater ;
     private Drawable mActionBarBackgroundDrawable;
 
@@ -67,29 +73,39 @@ public class Table extends AppCompatActivity  implements AdapterView.OnItemSelec
 
 
     private void initializeUILayout() {
-        // Customize the back button
-        // calling the action bar
-        ActionBar actionBar = getSupportActionBar();
+        // Использование кастомной кнопки возврата
+        // Вызов actionBar
+        this.actionBar = this.getSupportActionBar();
 
-        // Customize the back button
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
-        actionBar.setTitle("");
-        mActionBarBackgroundDrawable = getResources().getDrawable((R.color.colorAccent));
-        mActionBarBackgroundDrawable.setAlpha(0);
-        actionBar.setBackgroundDrawable(mActionBarBackgroundDrawable);
-        // showing the back button in action bar
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        // showing the back button in action bar
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.show();
-        final List<String> mCurrendRound = new ArrayList<>(mInt.length);
-        for (int i = 0; i < mInt.length; i++) {
-            mCurrendRound.add(i, mInt[i]);
+        // Замена на стандартной кнопки возврата на собственнуюx
+        this.actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
+        this.actionBar.setTitle("");
+        this.mActionBarBackgroundDrawable = getResources().getDrawable((R.color.colorAccent));
+        this.mActionBarBackgroundDrawable.setAlpha(0);
+        this.actionBar.setBackgroundDrawable(this.mActionBarBackgroundDrawable);
+
+        // Показать сосбвенную кнопку возврата
+        this.actionBar.setDisplayHomeAsUpEnabled(true);
+        this.actionBar.show();
+
+
+        if (type == 0) {
+            mass = mIntShort;
+        }else if (type == 1){
+                mass = mIntLarge;
+        }else if (type == 2){
+            mass = mStringEU;
+        }else if (type == 3){
+            mass = mStringRU;
+        }
+
+        final List<String> mCurrendRound = new ArrayList<>(mass.length);
+        for (int i = 0; i < mass.length; i++) {
+            mCurrendRound.add(i, mass[i]);
         }
         Collections.shuffle(mCurrendRound);
         final GridView g = (GridView) this.findViewById(R.id.table_grid);
         final Context applicationContext = this.getApplicationContext();
-        //getSupportActionBar().hide();
         this.mAdapter = new GridViewAdapter(applicationContext, R.layout.single_cell_layout, mCurrendRound);
         this.setUpGridAdapter(mCurrendRound, g);
         this.textViewValue = this.findViewById(R.id.chronometer);
@@ -119,6 +135,7 @@ public class Table extends AppCompatActivity  implements AdapterView.OnItemSelec
     private void setUpGridAdapter(List<String> mCurrendRound, @NotNull GridView g) {
 
         this.mAdapter.setCurrentPosition();
+
         g.setAdapter(this.mAdapter);
         g.setOnItemSelectedListener(this);
         g.setOnItemClickListener(new OnItemClickListener() {
@@ -148,7 +165,7 @@ public class Table extends AppCompatActivity  implements AdapterView.OnItemSelec
         Result result = getIntent().getParcelableExtra("result");
 
         if (result == null) result = new Result();
-        result.setDueDate(this.calendar.get(Calendar.YEAR), this.calendar.get(Calendar.MONTH), this.calendar.get(Calendar.DAY_OF_MONTH));
+        result.setDueDate(this.calendar.get(Calendar.YEAR), this.calendar.get(Calendar.MONTH), this.calendar.get(Calendar.DAY_OF_MONTH), this.calendar.get(Calendar.HOUR_OF_DAY), this.calendar.get(Calendar.MINUTE), this.calendar.get(Calendar.SECOND));
         result.setTime(this.textViewValue.getText().toString());
         Intent resultIntent =new Intent();
         resultIntent.putExtra("result", (Parcelable) result);

@@ -1,15 +1,18 @@
 package com.example.schultetable.ui.main;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.schultetable.R;
@@ -30,25 +33,46 @@ public class SliderActivity extends AppCompatActivity {
     private Handler mHandler;
     Animation animTranslate;
     Animation animTranslateReverse;
+    private Drawable mActionBarBackgroundDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         this.setContentView(R.layout.activity_slider);
+
+
+        // Customize the back button
+        // calling the action bar
+        ActionBar actionBar = this.getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setTitle("");
+        this.mActionBarBackgroundDrawable = getResources().getDrawable(R.color.colorAccent);
+        this.mActionBarBackgroundDrawable.setAlpha(0);
+        actionBar.setBackgroundDrawable(this.mActionBarBackgroundDrawable);
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.show();
+
+        hideSystemUI();
+        View view = findViewById(R.id.cv_slider_mainActivity);
+        view.setBackground(getResources().getDrawable((R.color.colorAccent)));
         this.animTranslate = AnimationUtils.loadAnimation(this, R.anim.anim_traslate);
         this.animTranslateReverse = AnimationUtils.loadAnimation(this, R.anim.anim_traslate_reverse);
         this.sliderView = findViewById(R.id.imageSlider);
         this.button = findViewById(R.id.start);
         this.adapter = new SliderAdapter(this);
+        this.sliderView.setIndicatorSelectedColor(getResources().getColor(R.color.colorActiveSliderItem));
+        this.sliderView.setIndicatorUnselectedColor(getResources().getColor(R.color.colorInActiveSliderItem));
         this.sliderView.setSliderAdapter(adapter);
         this.sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         this.sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
         this.sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_TO_END);
         this.sliderView.setClickable(false);
-        this.sliderView.setIndicatorSelectedColor(R.color.purpleBlue);
-        this.sliderView.setIndicatorUnselectedColor(R.color.colorInActiveItem);
         this.sliderView.setAutoCycle(true);
+        this.sliderView.setIndicatorRadius(5);
         this. sliderView.setScrollTimeInSec(3);
         this.sliderView.startAutoCycle();
         this.addNewItem(sliderView, R.drawable.ic_1st_illustration, R.string.first_illustration);
@@ -76,6 +100,13 @@ public class SliderActivity extends AppCompatActivity {
         mHandler.sendEmptyMessage(0);
 
     }
+    private void hideSystemUI() {
+        final Window window = this.getWindow();
+        final View decorView = window.getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        window.setStatusBarColor(this.getResources().getColor(R.color.colorAccent));
+    }
+
     public void setUpButton(boolean temp){
         if (temp==true){
             if(button.getVisibility()!=View.VISIBLE){

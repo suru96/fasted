@@ -11,4 +11,7 @@
     <color name="colorInActiveItem">#DFE6FF</color>
     <color name="colorTextItem">#333333</color>
 
+    <color name="colorActiveSliderItem">#5974D6</color>
+    <color name="colorInActiveSliderItem">#DFE6FF</color>
+
 </resources>

@@ -4,12 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/cv_slider">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_slider_mainActivity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         app:cardCornerRadius="8dp"
         tools:context=".ui.main.SlderActivity">
@@ -19,8 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="552dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
             android:layout_marginTop="59dp"
             app:sliderAnimationDuration="600"
             app:sliderAutoCycleDirection="right"
@@ -41,7 +41,7 @@
         android:layout_height="54dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/button_shape"
         android:onClick="onStartClick"
         android:text="@string/start"

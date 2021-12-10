@@ -4,22 +4,33 @@ import android.content.Intent;
 
 import com.example.schultetable.BuildConfig;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Map;
 
 public class Data {
-    private int totalTimeInt, totalAttemptsInt, lastTimeiInt, minTimeiInt;
+    private int totalTimeInt, totalAttemptsInt, lastTimeInt, minTimeInt, type, id;
 
-    public Data (Integer totalTimeInt, Integer totalAttemptsInt, Integer lastTimeiInt, Integer minTimeiInt){
+    public Data (Integer id, Integer type, Integer totalTimeInt,  Integer lastTimeInt, Integer minTimeInt, Integer totalAttemptsInt){
         this.totalAttemptsInt = totalAttemptsInt;
         this.totalTimeInt = totalTimeInt;
-        this.lastTimeiInt = lastTimeiInt;
-        this.minTimeiInt = minTimeiInt;
+        this.lastTimeInt = lastTimeInt;
+        this.minTimeInt = minTimeInt;
+        this.type = type;
+        this.id = id;
     }
-    public Data (){
+
+    public Data(){
+        this.id = 0;
         this.totalAttemptsInt = 0;
         this.totalTimeInt = 0;
-        this.lastTimeiInt = 0;
-        this.minTimeiInt = 0;
+        this.lastTimeInt = 0;
+        this.minTimeInt = 0;
+        this.type = 0;
+    }
+
+    public boolean isNew() {
+        return id == 0;
     }
 
     public Integer getTotalTimeInt() {
@@ -39,24 +50,39 @@ public class Data {
     }
 
     public Integer getLastTimeInt() {
-        return lastTimeiInt;
+        return lastTimeInt;
     }
 
     public void setLastTimeInt(Integer lastTimeiInt) {
-        this.lastTimeiInt = lastTimeiInt;
+        this.lastTimeInt = lastTimeiInt;
     }
 
     public Integer getMinTimeInt() {
-        return minTimeiInt;
+        return minTimeInt;
     }
 
-    public void setMinTimeInt(Integer minTimeiInt) {
-        this.minTimeiInt = minTimeiInt;
+    public void setMinTimeInt(Integer minTimeInt) {
+        this.minTimeInt = minTimeInt;
     }
 
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     //Преобразование строки во время
-    public static int[] unpack(String time) throws NullPointerException, NumberFormatException {
+    public static int[] unpack(@NotNull String time) throws NullPointerException, NumberFormatException {
         int[] output = {0, 0, 0};
         String[] parts = time.split(":");
         for (int x = 0; x < parts.length; x++) {
@@ -67,4 +93,11 @@ public class Data {
         return output;
     }
 
+    @Override
+    public String toString(){
+        return ("id: " + this.getId().toString() + " Type: " +this. getType().toString()
+                + " Total time: " + this.getTotalTimeInt() + " Last time " + this.getLastTimeInt()
+                + " Min time "  + this.getMinTimeInt().toString() + " Total attempts "
+                + this.getTotalAttemptsInt().toString());
+    }
 }
