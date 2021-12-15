@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.example.schultetable.Database.Data;
@@ -45,22 +46,22 @@ public class ResultActivity extends AppCompatActivity {
     int totalAttemptsInt, totalTimeInt, lastTimeInt, minTimeInt, totalTimeIntTemp, typeInt;
     private static final String TAG = Table.class.getSimpleName();
     private Drawable mActionBarBackgroundDrawable;
-    Intent resulIntent;
+    Intent resultIntent;
     Bundle arguments;
     SQLiteDatabase db;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initializeUILayout();
-        arguments = getIntent().getExtras();
-        initializeDatabase(resulIntent);
+        this.initializeDatabase(this.resultIntent);
+        this.initializeUILayout();
     }
+
     private void initializeDatabase(Intent resultIntent ) {
         Calendar calendar = Calendar.getInstance();
-        int[] date = { calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),calendar.get(Calendar.SECOND), calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH),calendar.get(Calendar.YEAR)};
+        int[] date = { calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
+                calendar.get(Calendar.SECOND), calendar.get(Calendar.DAY_OF_MONTH),
+                calendar.get(Calendar.MONTH),calendar.get(Calendar.YEAR)};
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         int currentMinute = calendar.get(Calendar.MINUTE);
         int second = calendar.get(Calendar.SECOND);
@@ -68,7 +69,7 @@ public class ResultActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
 
-        this.stopWatch = new StopWatch(resultTimeTextView);
+        this.stopWatch = new StopWatch(this.resultTimeTextView);
 
         if (null == resultIntent) {
             this.arguments = getIntent().getExtras();
@@ -80,22 +81,27 @@ public class ResultActivity extends AppCompatActivity {
                     this.arguments.getInt("lastTime", 0),
                     this.arguments.getInt("minTime", 0),
                     this.arguments.getInt("totalAttempts", 0));
-            this.result = new Result(0, this.arguments.getInt("type", 0),"0", null);
+            this.result = new Result(0, this.arguments.getInt("type", 0),
+                    "0", null);
 
             Log.d(TAG, "resultCode is: " + this.arguments.getInt("id", 0));
         } else {
             this.type = resultIntent.getStringExtra("type");
-            this.result = new Result(0, resultIntent.getIntExtra("type", 0),"0", null);
+            this.result = new Result(0, resultIntent.getIntExtra("type",
+            0),"0", null);
         }
-        if(null != this.type){
+        /*if(null != this.type){
             this.typeInt = this.result.givenString_whenCallingIntegerValueOf_shouldConvertToInt(type);
         } else {
             this.typeInt = 0;
-        }
+        }*/
         this.totalAttemptsInt = this.data.getTotalAttemptsInt();
+        this.typeInt = this.data.getType();
         this.totalTimeInt = this.data.getTotalTimeInt();
         this.result.setDueDate(year, month, currentdate, currentHour, currentMinute, second);
         this.totalTimeIntTemp = 0;
+        Log.d(TAG, "typeInt is: " + this.typeInt);
+
     }
 
     private void initializeUILayout() {
@@ -104,6 +110,7 @@ public class ResultActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
 
         // Customize the back button
+        assert null != actionBar;
         actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_clear_24);
         actionBar.setTitle("");
         this.mActionBarBackgroundDrawable = getResources().getDrawable((R.color.colorAccent));
@@ -114,35 +121,41 @@ public class ResultActivity extends AppCompatActivity {
         // showing the back button in action bar
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.show();
-        hideSystemUI();
+        this.hideSystemUI();
         this.setContentView(R.layout.activity_result);
-        this.view = (View) findViewById(R.id.result_view);
-        this.textView = findViewById(R.id.result_text);
-        this.minTimeTextView = findViewById(R.id.min_time);
-        this.lastTimeTextView = findViewById(R.id.last_time);
-        this.totalTimeTextView = findViewById(R.id.total_time);
-        this.lastTimeText = findViewById(R.id.last_time_text);
-        this.totalTimeText = findViewById(R.id.total_time_text);
-        this.minTimeText = findViewById(R.id.min_time_text);
+        this.view = (View) this.findViewById(R.id.result_view);
+        this.textView = this.findViewById(R.id.result_text);
+        this.minTimeTextView = this.findViewById(R.id.min_time);
+        this.lastTimeTextView = this.findViewById(R.id.last_time);
+        this.totalTimeTextView = this.findViewById(R.id.total_time);
+        this.lastTimeText = this.findViewById(R.id.last_time_text);
+        this.totalTimeText = this.findViewById(R.id.total_time_text);
+        this.minTimeText = this.findViewById(R.id.min_time_text);
         //final Typeface type = Typeface.createFromAsset(getAssets(),"fonts/roboto.ttf");
         this.view.setBackgroundResource(R.drawable.single_cell_shape);
         //this.textView.setTypeface(type);
-        this.resultTimeTextView = findViewById(R.id.result_time_text);
-        Intent intent = new Intent(this, Table.class);
-        this.startActivityForResult(intent ,1);
+        this.resultTimeTextView = this.findViewById(R.id.result_time_text);
+        Intent newIntent = new Intent(this, Table.class);
+        newIntent.putExtra("type", this.typeInt);
+        Log.d(TAG, "typeInt set: " + this.typeInt);
+        Log.d(TAG, "type set: " + newIntent.getExtras().getString("type"));
+        ResultActivity.this.startActivityForResult(newIntent ,1);
     }
 
     private void hideSystemUI() {
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
+        final Window window = this.getWindow();
+        final View decorView = window.getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        window.setStatusBarColor(Color.TRANSPARENT);
+        window.setBackgroundDrawableResource(R.drawable.background_layout_shape);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
+        if (android.R.id.home == item.getItemId()) {
+            this.finish();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -151,7 +164,7 @@ public class ResultActivity extends AppCompatActivity {
     protected void onActivityResult (int requestCode, int resultCode, Intent resultIntent) {
 
         super.onActivityResult(requestCode, resultCode, resultIntent);
-        initializeDatabase(resultIntent);
+        this.initializeDatabase(resultIntent);
         if (requestCode == 1) {
             Log.d(TAG, "resultCode is: " + resultCode);
             if (resultCode == RESULT_OK) {

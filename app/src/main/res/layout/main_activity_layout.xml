@@ -8,47 +8,236 @@
     android:id="@+id/mainView"
     android:background="@color/colorAccent">
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="375dp"
-        android:layout_height="317dp"
-        android:layout_marginTop="90dp"
+    <View
+        android:id="@+id/settingsView"
+        android:layout_width="match_parent"
+        android:layout_height="245dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/background_shape" />
+
+    <TextView
+        android:id="@+id/settingsText"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:text="@string/settings_text">
+    </TextView>
+
+    <View
+        android:id="@+id/single_cell_1"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignEnd="@+id/settingsView"
+        android:layout_alignStart="@+id/settingsView"
+        android:layout_alignTop="@+id/settingsView"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="65dp"
+        android:background="@drawable/single_shape_background" />
+
+    <TextView
+        android:id="@+id/numberText"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_alignTop="@+id/single_cell_1"
+        android:layout_toStartOf="@+id/number_to_letter_switch"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="10dp"
+        android:gravity="end"
+        android:textSize="22dp"
+        android:text="@string/number_text">
+    </TextView>
+
+    <Switch
+        android:id="@+id/number_to_letter_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:layout_alignTop="@+id/single_cell_1"
         android:layout_centerHorizontal="true"
-        android:clickable="true"/>
-    <TextView
-        android:id="@+id/minTime"
-        android:layout_width="134dp"
-        android:layout_height="27dp"
-        android:layout_below="@+id/calendarView"
-        android:text="@string/min_time">
+        android:layout_marginTop="12dp"
+        android:checked="false"
+        android:thumbTint="@color/colorActiveSliderItem"
+        android:trackTint="@color/colorActiveSliderItem"
+        android:onClick="onRadioButtonClicked">
 
-    </TextView>
+    </Switch>
 
     <TextView
-        android:id="@+id/minTimeView"
-        android:layout_width="134dp"
-        android:layout_height="27dp"
-        android:layout_below="@+id/minTime"
-        android:text="@string/result_time">
-
+        android:id="@+id/lettersText"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_alignTop="@+id/single_cell_1"
+        android:layout_toEndOf="@+id/number_to_letter_switch"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="8dp"
+        android:gravity="start"
+        android:textSize="22dp"
+        android:text="@string/letter_text">
     </TextView>
+
+    <View
+        android:id="@+id/single_cell_2"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignEnd="@+id/settingsView"
+        android:layout_alignStart="@+id/settingsView"
+        android:layout_below="@+id/single_cell_1"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/single_shape_background" />
+
+
+    <TextView
+        android:id="@+id/fiveText"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_alignTop="@+id/single_cell_2"
+        android:layout_toStartOf="@+id/five_to_seven_switch"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="10dp"
+        android:gravity="end"
+        android:textSize="22dp"
+        android:text="@string/five_text">
+    </TextView>
+
+    <Switch
+        android:id="@+id/five_to_seven_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:layout_alignTop="@+id/single_cell_2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:thumbTint="@color/colorActiveSliderItem"
+        android:trackTint="@color/colorActiveSliderItem"
+        android:onClick="onRadioButtonClicked">
+
+    </Switch>
+
+    <TextView
+        android:id="@+id/sevenText"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_alignTop="@+id/single_cell_2"
+        android:layout_toEndOf="@+id/five_to_seven_switch"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="8dp"
+        android:gravity="start"
+        android:textSize="22dp"
+        android:text="@string/seven_text">
+    </TextView>
+
+    <View
+        android:id="@+id/single_cell_3"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignEnd="@+id/settingsView"
+        android:layout_alignStart="@+id/settingsView"
+        android:layout_below="@+id/single_cell_2"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/single_shape_background" />
+
+
+    <TextView
+        android:id="@+id/monochromeText"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_alignTop="@+id/single_cell_3"
+        android:layout_toStartOf="@+id/monochrome_to_colors_switch"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="10dp"
+        android:gravity="end"
+        android:textSize="22dp"
+        android:text="@string/monochrome_text">
+    </TextView>
+
+    <Switch
+        android:id="@+id/monochrome_to_colors_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:layout_alignTop="@+id/single_cell_3"
+        android:layout_centerHorizontal="true"
+        android:thumbTint="@color/colorActiveSliderItem"
+        android:trackTint="@color/colorActiveSliderItem"
+        android:layout_marginTop="12dp"
+        android:onClick="onRadioButtonClicked">
+
+    </Switch>
+
+    <TextView
+        android:id="@+id/colorsText"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_alignTop="@+id/single_cell_3"
+        android:layout_toEndOf="@+id/monochrome_to_colors_switch"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="8dp"
+        android:gravity="start"
+        android:textSize="22dp"
+        android:text="@string/color_text">
+    </TextView>
+
 
     <TextView
         android:id="@+id/stopWatchView"
         android:layout_width="134dp"
         android:layout_height="27dp"
-        android:layout_below="@+id/minTime"
         android:text="@string/result_time"
         android:visibility="invisible">
     </TextView>
 
     <Button
         android:id="@+id/startButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/calendarView"
-        android:layout_marginTop="100dp"
-        android:layout_centerHorizontal="true"
+        android:layout_width="196dp"
+        android:layout_height="64dp"
+        android:layout_below="@+id/settingsView"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/button_shape"
         android:text="@string/action_start"
+        android:textColor="@color/colorWhite"
         tools:layout_editor_absoluteY="644dp" />
+
+    <TextView
+        android:id="@+id/minTimeView"
+        android:layout_width="134dp"
+        android:layout_height="27dp"
+        android:layout_below="@+id/minTime"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@+id/startButton"
+        android:textSize="18dp"
+        android:text="@string/result_time">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/minTime"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:layout_below="@+id/settingsView"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:layout_toEndOf="@+id/startButton"
+        android:textSize="18dp"
+        android:text="@string/min_time">
+
+    </TextView>
+
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="375dp"
+        android:layout_height="317dp"
+        android:layout_below="@+id/startButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:clickable="true" />
+
 </RelativeLayout>

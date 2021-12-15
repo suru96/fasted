@@ -13,5 +13,6 @@
 
     <color name="colorActiveSliderItem">#5974D6</color>
     <color name="colorInActiveSliderItem">#DFE6FF</color>
+    <color name="colorBackgroundShape">#F3F3F3</color>
 
 </resources>

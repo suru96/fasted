@@ -2,15 +2,15 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/single_cell_layout"
-    android:background="@drawable/single_cell_shape_center"
     android:layout_width="75dp"
     android:layout_height="75dp"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
+    android:background="@drawable/single_cell_shape_center"
+    android:gravity="center"
     android:text="@string/last_char"
     android:textAlignment="center"
-    android:textSize="48dp"
-    android:textStyle="bold"
+    android:textSize="12dp"
     tools:ignore="RtlCompat">
 
 </TextView>

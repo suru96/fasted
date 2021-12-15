@@ -2,14 +2,18 @@ package com.example.schultetable.table;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Scroller;
+import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.schultetable.R;
+
+import org.jetbrains.annotations.NonNls;
 
 import java.util.List;
 
@@ -17,23 +21,33 @@ import java.util.List;
 public class GridViewAdapter extends ArrayAdapter<String> {
     private LayoutInflater mInflater;
     private static final String TAG = Table.class.getSimpleName();
-    private static final String[] mInt ={ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25"};
-    private int currentPosition;
+    private static  String[] mInt = {};
+    private int currentPosition, type, lineCount = 5, topLeftPosition=0, topRightPosition=0,
+            endLeftPosition=0, endRightPosition=0;
     private boolean isRunning = false;
     Context mContext;
     List<String> mCurrendRound;
 
     // Конструктор
-    public GridViewAdapter(Context context, int textViewResourceId, List<String> CurrendRound) {
+    public GridViewAdapter(Context context, int textViewResourceId, List<String> CurrendRound, String[] mInt) {
         super(context, textViewResourceId, mInt);
-        // TODO Auto-generated constructor stub
-        mContext = context;
-        mCurrendRound = CurrendRound;
+
+        this.mContext = context;
+        this.mCurrendRound = CurrendRound;
     }
-
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        if(5 == this.lineCount){
+            this.topLeftPosition = 0;
+            this.topRightPosition = 4;
+            this.endLeftPosition = 20;
+            this.endRightPosition = 24;
+        } else {
+            this.topLeftPosition = 0;
+            this.topRightPosition = 6;
+            this.endLeftPosition = 42;
+            this.endRightPosition = 48;
+        }
         // TODO Auto-generated method stub
         TextView label = (TextView) convertView;
         if (convertView == null) {
@@ -42,34 +56,44 @@ public class GridViewAdapter extends ArrayAdapter<String> {
             label.setSingleLine(true);
             label.setCursorVisible(false);
         }
-        //Log.d(TAG, "isRunning is:" + isRunning);
+        Log.d(TAG, "lineCount is:" + lineCount);
         if (this.isRunning) {
             if (isTrue(this.currentPosition, position)) {
-               // Log.d(TAG, "isTrue is:" + isTrue(this.currentPosition, position) +  " position: " + position + " currentPosition: " +currentPosition);
-                label.setWidth((int) convertDpToPixels(mContext, (float) 74.0));
-                label.setHeight((int) convertDpToPixels(mContext, (float) 74.0));
-                if (position == 0) {label.setBackgroundResource(R.drawable.single_cell_shape_inactive_top_left);}
-                else if (position == 4) {label.setBackgroundResource(R.drawable.single_cell_shape_inactive_top_right);}
-                else if (position == 20) {label.setBackgroundResource(R.drawable.single_cell_shape_inactive_bottom_left);}
-                else if (position == 24) {label.setBackgroundResource(R.drawable.single_cell_shape_inactive_bottom_right);}
+               // Log.d(TAG, "isTrue is:" + isTrue(this.currentPosition, position) +  " position: "
+                // + position + " currentPosition: " +currentPosition);
+                if (position == this.topLeftPosition) {
+                    label.setBackgroundResource(R.drawable.single_cell_shape_inactive_top_left);}
+                else if (position == this.topRightPosition) {
+                    label.setBackgroundResource(R.drawable.single_cell_shape_inactive_top_right);}
+                else if (position == this.endLeftPosition) {
+                    label.setBackgroundResource(R.drawable.single_cell_shape_inactive_bottom_left);}
+                else if (position == this.endRightPosition) {
+                    label.setBackgroundResource(R.drawable.single_cell_shape_inactive_bottom_right);}
                 else {label.setBackgroundResource(R.drawable.single_cell_shape_inactive_center);}
-                label.setTextColor(mContext.getResources().getColor(R.color.colorinActiveText));
+                label.setTextColor(this.mContext.getResources().getColor(R.color.colorinActiveText));
                 label.setClickable(false);
             }
         } else {
 
-            label.setText(mCurrendRound.get(position));
-            label.setWidth((int) convertDpToPixels(mContext, (float) 74.0));
-            label.setHeight((int) convertDpToPixels(mContext, (float) 74.0));
-
+            label.setText(this.mCurrendRound.get(position));
             label.setTextSize(48);
-            if (position == 0) {label.setBackgroundResource(R.drawable.single_cell_shape_top_left);}
-            else if (position == 4) {label.setBackgroundResource(R.drawable.single_cell_shape_top_right);}
-            else if (position == 20) {label.setBackgroundResource(R.drawable.single_cell_shape_bottom_left);}
-            else if (position == 24) {label.setBackgroundResource(R.drawable.single_cell_shape_bottom_right);}
-            else {label.setBackgroundResource(R.drawable.single_cell_shape_center);}
-            label.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            if (position == this.topLeftPosition) {
+                label.setBackgroundResource(R.drawable.single_cell_shape_top_left);}
+            else if (position == this.topRightPosition) {
+                label.setBackgroundResource(R.drawable.single_cell_shape_top_right);}
+            else if (position == this.endLeftPosition) {
+                label.setBackgroundResource(R.drawable.single_cell_shape_bottom_left);}
+            else if (position == this.endRightPosition) {
+                label.setBackgroundResource(R.drawable.single_cell_shape_bottom_right);}
+            else {label.setBackgroundResource(R.drawable.single_cell_shape_center);
+            }
         }
+
+        label.setWidth((int) convertDpToPixels(mContext, (float) 375 / this.lineCount));
+        label.setHeight((int) convertDpToPixels(mContext, (float) 375 / this.lineCount));
+        label.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        label.setTextSize(25);
+        label.setGravity(Gravity.CENTER);
         return (convertView);
     }
     // Java
@@ -84,7 +108,6 @@ public class GridViewAdapter extends ArrayAdapter<String> {
     public String getItem(int position) {
         return mInt[position];
     }
-
     public String getItemList(int position) {
         return mCurrendRound.get(position);
     }
@@ -106,6 +129,21 @@ public class GridViewAdapter extends ArrayAdapter<String> {
     public void setIsRunning(Boolean run) {
         this.isRunning = run;
         Log.d(TAG, "isRunning set:" + isRunning);
+    }
+
+    public void setMass(String[] mass) {
+        mInt = mass;
+        Log.d(TAG, "mass set:" + mass.toString());
+    }
+
+    public String[] getMass() {
+        return mInt;
+    }
+
+    public void setLineCount(Integer lineCount){
+        this.lineCount = lineCount;
+        Log.d(TAG, "lineCount set:" + lineCount);
+
     }
 
     public Boolean getIsRunning() {

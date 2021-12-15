@@ -45,7 +45,7 @@ public class StopWatch {
         }
 
         String timeString = prefixMM + minutes + ":" + prefixSS + seconds + ":" + prefixMS + time % 100;
-        Log.d(TAG, "Time is: " + timeString);
+        //Log.d(TAG, "Time is: " + timeString);
         // Log.d(TAG, "Time is update!" + timeString + "time " + time%10);
         return timeString;
     }
@@ -61,7 +61,7 @@ public class StopWatch {
     }
 
     public int convertArrayToTime(int [] time) {
-        Log.d(TAG, "Time is" + (time[1] * 6000)%1000);
+        //Log.d(TAG, "Time is" + (time[1] * 6000)%1000);
         return time[0] * 6000 + (time[1] * 100) + time[2];
     }
 

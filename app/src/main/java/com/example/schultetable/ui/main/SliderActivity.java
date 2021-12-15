@@ -1,10 +1,14 @@
 package com.example.schultetable.ui.main;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
@@ -12,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -100,11 +105,13 @@ public class SliderActivity extends AppCompatActivity {
         mHandler.sendEmptyMessage(0);
 
     }
+
     private void hideSystemUI() {
         final Window window = this.getWindow();
         final View decorView = window.getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        window.setStatusBarColor(this.getResources().getColor(R.color.colorAccent));
+        window.setStatusBarColor(Color.TRANSPARENT);
+        window.setBackgroundDrawableResource(R.drawable.background_layout_shape);
     }
 
     public void setUpButton(boolean temp){
@@ -139,6 +146,7 @@ public class SliderActivity extends AppCompatActivity {
             }
         }, 500);
     }
+
     private void startAnimReverse() {
         // Установить анимацию, сдвинув ее высоту от нижней части позиции вверх, длительность составляет 500 мс
         final TranslateAnimation ctrlAnimation1 = new TranslateAnimation(
@@ -154,6 +162,7 @@ public class SliderActivity extends AppCompatActivity {
             }
         }, 500);
     }
+
     public void renewItems(View view) {
         List<SliderItem> sliderItemList = new ArrayList<>();
         //dummy data
@@ -184,6 +193,16 @@ public class SliderActivity extends AppCompatActivity {
             adapter.deleteItem(adapter.getCount() - 1);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (android.R.id.home == item.getItemId()) {
+            this.finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public void addNewItem(View view, Integer imageId, Integer stringId) {
         SliderItem sliderItem = new SliderItem();
         sliderItem.setDescription(getResources().getText(stringId).toString());
@@ -192,6 +211,9 @@ public class SliderActivity extends AppCompatActivity {
     }
 
     public void onStartClick(View view) {
+        Intent resultIntent =new Intent();
+        this.setResult(this.RESULT_OK, resultIntent);
+        this.finish();
         finish();
     }
 }

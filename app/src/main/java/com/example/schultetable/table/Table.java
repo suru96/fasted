@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -21,9 +22,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.schultetable.Database.Data;
+import com.example.schultetable.Database.FastedApplication;
 import com.example.schultetable.R;
 import com.example.schultetable.Result;
 
+import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -43,34 +47,63 @@ public class Table extends AppCompatActivity  implements AdapterView.OnItemSelec
     private TextView textSearch;
     private TextView textSearchNext;
     private Button startButton, saveButton;
-    private Integer type =  0;
+    private Integer type =  0, id, totalTime, totalAttempts, lastTime, minTime;
     private boolean isRunning = false;
     private StopWatch time;
     private static final String TAG = Table.class.getSimpleName();
     private String value;
     private Context context;
     private GridViewAdapter mAdapter;
-    private Integer currentPosition = 0;
+    private Integer currentPosition = 0, lineCount = 5;
     private Result result;
     ActionBar actionBar;
     Calendar calendar = Calendar.getInstance();
-    private static final String[] mIntShort ={ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25"};
-    private static final String[] mIntLarge ={ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25","26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49"};
-    private static final String[] mStringEU ={ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y"};
-    private static final String[] mStringRU ={ "а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф", "х", "ц", "ч"};
+    private static final String[] mIntShort ={ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+            "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24",
+            "25"};
+    private static final String[] mIntLarge ={ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+            "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24",
+            "25","26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38",
+            "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49"};
+    @NonNls
+    private static final String[] mStringEU ={ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+            "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y"};
+    @NonNls
+    private static final String[] mStringRU ={ "а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и",
+            "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф", "х", "ц", "ч"};
     private static  String[] mass;
     private MenuInflater inflater ;
     private Drawable mActionBarBackgroundDrawable;
+    Intent intent;
+    @NonNls
+    Bundle arguments;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_tab);
-        hideSystemUI();
+        this.intializeTable();
+        this.hideSystemUI();
         this.initializeUILayout();
     }
 
+    private void intializeTable(){
+        this.arguments = getIntent().getExtras();
+        Log.d(TAG, "arguments is: " + arguments);
+        assert this.arguments != null;
+        this.type = this.arguments.getInt("type", 0);
+        Log.d(TAG, "type is: " + this.type);
+        if (this.type == 0) {
+            mass = mIntShort;
+        } else if (this.type == 1) {
+            mass = mIntLarge;
+        } else if (this.type == 2) {
+            mass = mStringEU;
+        } else if (this.type == 3) {
+            mass = mStringRU;
+        }
+    }
 
     private void initializeUILayout() {
         // Использование кастомной кнопки возврата
@@ -88,25 +121,35 @@ public class Table extends AppCompatActivity  implements AdapterView.OnItemSelec
         this.actionBar.setDisplayHomeAsUpEnabled(true);
         this.actionBar.show();
 
-
-        if (type == 0) {
-            mass = mIntShort;
-        }else if (type == 1){
-                mass = mIntLarge;
-        }else if (type == 2){
-            mass = mStringEU;
-        }else if (type == 3){
-            mass = mStringRU;
-        }
-
         final List<String> mCurrendRound = new ArrayList<>(mass.length);
         for (int i = 0; i < mass.length; i++) {
             mCurrendRound.add(i, mass[i]);
         }
         Collections.shuffle(mCurrendRound);
         final GridView g = (GridView) this.findViewById(R.id.table_grid);
+        g.setSelector(new ColorDrawable(Color.TRANSPARENT));
         final Context applicationContext = this.getApplicationContext();
-        this.mAdapter = new GridViewAdapter(applicationContext, R.layout.single_cell_layout, mCurrendRound);
+        if (this.type == 0) {
+            this.mAdapter = new GridViewAdapter(applicationContext, R.layout.single_cell_layout,
+                    mCurrendRound, mIntShort);
+            mAdapter.setMass(mIntShort);
+        } else if (this.type == 1) {
+            this.mAdapter = new GridViewAdapter(applicationContext, R.layout.single_cell_layout,
+                    mCurrendRound, mIntLarge);
+            g.setNumColumns(7);
+            this.mAdapter.setLineCount(7);
+            mAdapter.setMass(mIntLarge);
+            Log.d(TAG, "mAdapter.setMass is: " + this.mAdapter.getMass());
+
+        } else if (this.type == 2) {
+            this.mAdapter = new GridViewAdapter(applicationContext, R.layout.single_cell_layout,
+                    mCurrendRound, mStringEU);
+            mAdapter.setMass(mStringEU);
+        } else if (this.type == 3) {
+            this.mAdapter = new GridViewAdapter(applicationContext, R.layout.single_cell_layout,
+                    mCurrendRound, mStringRU);
+            mAdapter.setMass(mStringRU);
+        }
         this.setUpGridAdapter(mCurrendRound, g);
         this.textViewValue = this.findViewById(R.id.chronometer);
         this.textViewValue.setText("00:00:00");
@@ -119,8 +162,12 @@ public class Table extends AppCompatActivity  implements AdapterView.OnItemSelec
     }
 
     private void hideSystemUI() {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
+            final Window window = this.getWindow();
+            final View decorView = window.getDecorView();
+            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                window.setStatusBarColor(Color.TRANSPARENT);
+            window.setBackgroundDrawableResource(R.drawable.background_layout_shape);
+
     }
 
     private void runTime(boolean isRunning) {
@@ -135,7 +182,6 @@ public class Table extends AppCompatActivity  implements AdapterView.OnItemSelec
     private void setUpGridAdapter(List<String> mCurrendRound, @NotNull GridView g) {
 
         this.mAdapter.setCurrentPosition();
-
         g.setAdapter(this.mAdapter);
         g.setOnItemSelectedListener(this);
         g.setOnItemClickListener(new OnItemClickListener() {
@@ -144,13 +190,14 @@ public class Table extends AppCompatActivity  implements AdapterView.OnItemSelec
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 // TODO Auto-generated method stubz`
-                if (mAdapter.getIsRunning() && (mAdapter.getCurrentPosition() == 24)){
+                if (mAdapter.getIsRunning() && (mAdapter.getCurrentPosition() == mass.length-1)){
                     mAdapter.getView(position, v, parent);
                     mAdapter.setIsRunning(false);
                     runTime(false);
                     mAdapter.setCurrentPosition();
                     saveResult();
-                }else if (mAdapter.getIsRunning() && mAdapter.isTrue(mAdapter.getCurrentPosition(), position)){
+                }else if (mAdapter.getIsRunning() && mAdapter.isTrue(mAdapter.getCurrentPosition(),
+                        position)){
                     textSearchNext = findViewById(R.id.next_search);
                     currentPosition = mAdapter.getCurrentPosition() + 1;
                     textSearchNext.setText(mAdapter.getItem(currentPosition).toString());
@@ -165,7 +212,9 @@ public class Table extends AppCompatActivity  implements AdapterView.OnItemSelec
         Result result = getIntent().getParcelableExtra("result");
 
         if (result == null) result = new Result();
-        result.setDueDate(this.calendar.get(Calendar.YEAR), this.calendar.get(Calendar.MONTH), this.calendar.get(Calendar.DAY_OF_MONTH), this.calendar.get(Calendar.HOUR_OF_DAY), this.calendar.get(Calendar.MINUTE), this.calendar.get(Calendar.SECOND));
+        result.setDueDate(this.calendar.get(Calendar.YEAR), this.calendar.get(Calendar.MONTH),
+                this.calendar.get(Calendar.DAY_OF_MONTH), this.calendar.get(Calendar.HOUR_OF_DAY),
+                this.calendar.get(Calendar.MINUTE), this.calendar.get(Calendar.SECOND));
         result.setTime(this.textViewValue.getText().toString());
         Intent resultIntent =new Intent();
         resultIntent.putExtra("result", (Parcelable) result);
@@ -177,8 +226,8 @@ public class Table extends AppCompatActivity  implements AdapterView.OnItemSelec
     public void onStartClick(View view) {
         this.mAdapter.setIsRunning(true);
         this.runTime(true);
-        currentPosition = mAdapter.getFirstPosition();
-        textSearchNext.setText(mAdapter.getItem(currentPosition).toString());
+        this.currentPosition = this.mAdapter.getFirstPosition();
+        this.textSearchNext.setText(this.mAdapter.getItem(this.currentPosition).toString());
         this.startButton.setClickable(false);
         this.startButton.setVisibility(View.INVISIBLE);
     }
@@ -208,6 +257,13 @@ public class Table extends AppCompatActivity  implements AdapterView.OnItemSelec
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                if (mAdapter.getIsRunning()) {
+                    this.mAdapter.setIsRunning(false);
+                    this.runTime(false);
+                    this.textViewValue.setText("00:00:00");
+                    currentPosition = mAdapter.getFirstPosition();
+                    textSearchNext.setText(mAdapter.getItem(currentPosition).toString());
+                }
                 this.finish();
                 return true;
             case R.id.nav_refresh:

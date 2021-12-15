@@ -47,7 +47,7 @@
     <GridView
         android:id="@+id/table_grid"
         android:layout_width="375dp"
-        android:layout_height="380dp"
+        android:layout_height="378dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="180dp"
         android:numColumns="@string/max_column"
@@ -64,6 +64,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="27dp"
         android:onClick="onStartClick"
+        android:background="@drawable/button_shape"
+        android:textColor="@color/colorWhite"
         android:text="@string/start" />
 
 </RelativeLayout>
