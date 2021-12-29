@@ -70,7 +70,6 @@ public class ResultActivity extends AppCompatActivity {
         int year = calendar.get(Calendar.YEAR);
 
         this.stopWatch = new StopWatch(this.resultTimeTextView);
-
         if (null == resultIntent) {
             this.arguments = getIntent().getExtras();
             this.resultIntArray = new int[]{0, 0, 0};
@@ -90,13 +89,9 @@ public class ResultActivity extends AppCompatActivity {
             this.result = new Result(0, resultIntent.getIntExtra("type",
             0),"0", null);
         }
-        /*if(null != this.type){
-            this.typeInt = this.result.givenString_whenCallingIntegerValueOf_shouldConvertToInt(type);
-        } else {
-            this.typeInt = 0;
-        }*/
         this.totalAttemptsInt = this.data.getTotalAttemptsInt();
         this.typeInt = this.data.getType();
+        Log.d(TAG, "typeInt " + this.typeInt);
         this.totalTimeInt = this.data.getTotalTimeInt();
         this.result.setDueDate(year, month, currentdate, currentHour, currentMinute, second);
         this.totalTimeIntTemp = 0;
@@ -164,7 +159,7 @@ public class ResultActivity extends AppCompatActivity {
     protected void onActivityResult (int requestCode, int resultCode, Intent resultIntent) {
 
         super.onActivityResult(requestCode, resultCode, resultIntent);
-        this.initializeDatabase(resultIntent);
+        //this.initializeDatabase(resultIntent);
         if (requestCode == 1) {
             Log.d(TAG, "resultCode is: " + resultCode);
             if (resultCode == RESULT_OK) {
@@ -227,6 +222,7 @@ public class ResultActivity extends AppCompatActivity {
 
     public void onRetryClick(View view) {
         Intent intent = new Intent(this, Table.class);
+        intent.putExtra("type", this.typeInt);
         this.startActivityForResult(intent ,1);
     }
 }

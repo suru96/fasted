@@ -74,6 +74,7 @@ public class GridViewAdapter extends ArrayAdapter<String> {
                 label.setClickable(false);
             }
         } else {
+            Log.d(TAG, "Current state^ " + this.isRunning);
 
             label.setText(this.mCurrendRound.get(position));
             label.setTextSize(48);

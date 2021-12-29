@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("lastTime", result.getLastTimeInt());
                 intent.putExtra("minTime", result.getMinTimeInt());
                 intent.putExtra("totalAttempts", result.getTotalAttemptsInt());
+                Log.d(TAG, "result type is" + result.getType().toString());
                 Log.d(TAG, "intent is" + intent.toString());
                 MainActivity.this.startActivityForResult(intent, 1);
             }
@@ -157,8 +158,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_info:
-                Intent intent = new Intent(getApplicationContext(), SliderActivity.class);
-                startActivityForResult(intent, 2);
+                Intent newIntent = new Intent(getApplicationContext(), SliderActivity.class);
+                newIntent.putExtra("id", result.getId());
+                newIntent.putExtra("type", result.getType());
+                newIntent.putExtra("totalTime", result.getTotalTimeInt());
+                newIntent.putExtra("lastTime", result.getLastTimeInt());
+                newIntent.putExtra("minTime", result.getMinTimeInt());
+                newIntent.putExtra("totalAttempts", result.getTotalAttemptsInt());
+                startActivityForResult(newIntent, 2);
                 return true;
         }
 
@@ -185,18 +192,20 @@ public class MainActivity extends AppCompatActivity {
             case R.id.number_to_letter_switch:
                 if (checked) {
                     if (Locale.getDefault().getLanguage() == "ru"){
-                        this.type = 2;
+                        this.type = 3;
                         switchMode.setClickable(false);
                         switchMode.setChecked(false);
                         this.result.setType(2);
                         this.initListAdapter();
                     } else {
-                        this.type = 3;
+                        this.type = 2;
+                        switchMode.setClickable(false);
+                        switchMode.setChecked(false);
                         this.result.setType(3);
                         this.initListAdapter();
                     }
                 } else {
-                    type = 0;
+                    this.type = 0;
                     this.result.setType(0);
                     switchMode.setClickable(true);
                     this.initListAdapter();
