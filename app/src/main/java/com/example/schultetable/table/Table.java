@@ -288,7 +288,7 @@ public class Table extends AppCompatActivity  implements AdapterView.OnItemSelec
                     this.mAdapter.setIsRunning(false);
                     this.runTime(false);
                     this.initializeUILayout();
-                    this.startButton.callOnClick();
+                    //this.startButton.callOnClick();
                 }
         }
 
